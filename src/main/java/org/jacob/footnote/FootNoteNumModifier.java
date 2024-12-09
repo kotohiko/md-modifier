@@ -10,8 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  * A utility program to modify text in a file by incrementing numbers
- * in the pattern "[^0-number]" within a specified range, even when
- * preceded by other characters (e.g., "> [^0-number]").
+ * in the pattern "[^0-number]" within a specified range.
  * <p>
  * The program reads a file, searches for matches of the specified pattern,
  * increments the numeric portion of matches within the range `[start, end]` by a given `increment`,
@@ -26,7 +25,7 @@ import java.util.regex.Pattern;
 public class FootNoteNumModifier {
     public static void main(String[] args) {
         // File path of the input text file
-        String filePath = "src/main/resources/transfer-file";
+        String filePath = "input.txt";
 
         // Range of numbers to modify
         int start = 105; // Start of the range
@@ -40,9 +39,8 @@ public class FootNoteNumModifier {
             Path path = Paths.get(filePath);
             String content = new String(Files.readAllBytes(path));
 
-            // Regular expression to match patterns like "> [^0-number]"
-            // Allows optional preceding characters (e.g., spaces, >)
-            String regex = "(?<=\\W)\\[\\^0-(\\d+)]";
+            // Regular expression to match patterns like [^0-number]
+            String regex = "\\[\\^0-(\\d+)]";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(content);
 
